@@ -123,8 +123,18 @@ export default function ExplorePage() {
             </div>
           ))}
           {filteredReports.length === 0 && (
-            <div className="text-center py-10 text-gray-500 font-medium">
-              Tidak ada laporan yang sesuai dengan filter.
+            <div className="text-center py-12 flex flex-col items-center justify-center gap-4 bg-[#f0ece9]/60 rounded-2xl p-6 border border-white/40 shadow-sm">
+              <Icon icon="solar:magnifer-linear" width={48} className="text-gray-400" />
+              <p className="text-gray-600 font-semibold text-sm">Tidak ada laporan yang sesuai dengan filter.</p>
+              <button 
+                onClick={() => {
+                  setActiveBuilding('all');
+                  setActiveDamage('all');
+                }}
+                className="bg-[#1e58b3] text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow hover:bg-blue-800 active:scale-95 transition-all"
+              >
+                Reset Filter
+              </button>
             </div>
           )}
         </div>

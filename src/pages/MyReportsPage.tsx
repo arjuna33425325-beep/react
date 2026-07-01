@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
+import { useSearchParams } from 'react-router-dom';
 import { dummyReports } from '../data/dummy';
 import Header from '../components/Header';
 import BackButton from '../components/BackButton';
@@ -7,7 +8,15 @@ import BackButton from '../components/BackButton';
 type TabKey = 'Semua' | 'Proses' | 'Selesai';
 
 export default function MyReportsPage() {
-  const [activeTab, setActiveTab] = useState<TabKey>('Semua');
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab') as TabKey | null;
+  const [activeTab, setActiveTab] = useState<TabKey>(tabParam && ['Semua', 'Proses', 'Selesai'].includes(tabParam) ? tabParam : 'Semua');
+
+  useEffect(() => {
+    if (tabParam && ['Semua', 'Proses', 'Selesai'].includes(tabParam)) {
+      setActiveTab(tabParam as TabKey);
+    }
+  }, [tabParam]);
 
   const tabs: TabKey[] = ['Semua', 'Proses', 'Selesai'];
 

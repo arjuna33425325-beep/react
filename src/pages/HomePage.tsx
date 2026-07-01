@@ -18,16 +18,25 @@ export default function HomePage() {
           <p className="text-sm text-gray-800">Status Laporan Anda</p>
           <h2 className="text-xl font-bold mt-1 mb-4">2 Laporan Berjalan</h2>
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-[#ebd9c1] rounded-xl p-3 flex flex-col items-center justify-center">
-              <span className="text-2xl font-bold">1</span>
+            <div
+              className="bg-[#ebd9c1] rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:brightness-95 active:scale-95 transition-all"
+              onClick={() => navigate('/reports?tab=Proses')}
+            >
+              <span className="text-2xl font-bold">{dummyReports.filter(r => r.status === 'Menunggu').length}</span>
               <span className="text-[10px] uppercase font-medium">Menunggu</span>
             </div>
-            <div className="bg-[#eac4b3] rounded-xl p-3 flex flex-col items-center justify-center">
-              <span className="text-2xl font-bold">1</span>
+            <div
+              className="bg-[#eac4b3] rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:brightness-95 active:scale-95 transition-all"
+              onClick={() => navigate('/reports?tab=Proses')}
+            >
+              <span className="text-2xl font-bold">{dummyReports.filter(r => r.status === 'Diproses').length}</span>
               <span className="text-[10px] uppercase font-medium">Diproses</span>
             </div>
-            <div className="bg-[#b7ebb3] rounded-xl p-3 flex flex-col items-center justify-center">
-              <span className="text-2xl font-bold">3</span>
+            <div
+              className="bg-[#b7ebb3] rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer hover:brightness-95 active:scale-95 transition-all"
+              onClick={() => navigate('/reports?tab=Selesai')}
+            >
+              <span className="text-2xl font-bold">{dummyReports.filter(r => r.status === 'Selesai').length}</span>
               <span className="text-[10px] uppercase font-medium">Selesai</span>
             </div>
           </div>
