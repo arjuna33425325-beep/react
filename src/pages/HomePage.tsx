@@ -81,7 +81,7 @@ export default function HomePage() {
           </div>
           <div className="flex flex-col gap-4">
             {recentReports.map(r => (
-              <div key={r.id} className="bg-[#f2efe9] rounded-2xl p-4 flex gap-4 cursor-pointer relative shadow-sm" onClick={() => navigate('/reports')}>
+              <div key={r.id} className="bg-[#f2efe9] rounded-2xl p-4 flex gap-4 cursor-pointer relative shadow-sm" onClick={() => navigate(`/report/${r.id}`)}>
                 <img src={r.image} alt={r.title} className="w-20 h-20 object-cover rounded-xl" />
                 <div className="flex-1 pt-1">
                   <div className="absolute top-3 right-3">

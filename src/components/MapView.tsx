@@ -3,7 +3,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState, useEffect } from 'react';
 
-// Fix for leaflet default marker icon
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
@@ -62,10 +61,10 @@ export default function MapView({ lat, lng, interactive = false, onPositionChang
     <MapContainer 
       center={[lat, lng]} 
       zoom={16} 
-      scrollWheelZoom={interactive}
-      doubleClickZoom={interactive}
-      dragging={interactive}
-      zoomControl={interactive}
+      scrollWheelZoom={true}
+      doubleClickZoom={!interactive}
+      dragging={true}
+      zoomControl={true}
       className="w-full h-full"
     >
       <TileLayer

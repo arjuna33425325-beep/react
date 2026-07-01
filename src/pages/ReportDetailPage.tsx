@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import { dummyReports } from '../data/dummy';
 import polinesLogo from '../assets/polines.png';
 import MapView from '../components/MapView';
+import AlertModal from '../components/AlertModal';
 
 function StarRating({ rating, onRate, disabled }: { rating: number; onRate: (n: number) => void; disabled: boolean }) {
   return (
@@ -28,7 +29,8 @@ export default function ReportDetailPage() {
 
   const [rating, setRating] = useState(report?.rating || 0);
   const [comment, setComment] = useState(report?.reviewComment || '');
-  const [submitted, setSubmitted] = useState(false); // Initialized to false so user can test the interaction!
+  const [submitted, setSubmitted] = useState(false);
+  const [showCancelAlert, setShowCancelAlert] = useState(false);
 
   if (!report) {
     return (
@@ -204,10 +206,18 @@ export default function ReportDetailPage() {
             <Icon icon="solar:letter-outline" width={18} />
             Hubungi Petugas
           </button>
-          <button className="text-[#d32f2f] font-bold text-sm px-4 py-4 hover:underline" onClick={() => navigate(-1)}>
+          <button className="text-[#d32f2f] font-bold text-sm px-4 py-4 hover:underline" onClick={() => setShowCancelAlert(true)}>
             Batalkan
           </button>
         </div>
+
+        <AlertModal
+          isOpen={showCancelAlert}
+          type="error"
+          title={`Laporan\nDibatalkan`}
+          description="Laporan Anda telah berhasil dibatalkan."
+          onContinue={() => { setShowCancelAlert(false); navigate(-1); }}
+        />
 
       </div>
     </div>

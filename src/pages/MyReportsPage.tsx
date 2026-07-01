@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { dummyReports } from '../data/dummy';
 import Header from '../components/Header';
 import BackButton from '../components/BackButton';
@@ -8,6 +8,7 @@ import BackButton from '../components/BackButton';
 type TabKey = 'Semua' | 'Proses' | 'Selesai';
 
 export default function MyReportsPage() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const tabParam = searchParams.get('tab') as TabKey | null;
   const [activeTab, setActiveTab] = useState<TabKey>(tabParam && ['Semua', 'Proses', 'Selesai'].includes(tabParam) ? tabParam : 'Semua');
@@ -51,7 +52,7 @@ export default function MyReportsPage() {
 
       <div className="p-4 flex flex-col gap-4">
         {filtered.map((r) => (
-          <div key={r.id} className="bg-white shadow-xl rounded-2xl shadow-sm overflow-hidden">
+          <div key={r.id} className="bg-white shadow-xl rounded-2xl shadow-sm overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow" onClick={() => navigate(`/report/${r.id}`)}>
             <div className="p-4 pb-0 flex gap-4">
               <img src={r.image} alt={r.title} className="w-24 h-20 object-cover rounded-xl" />
               <div className="flex-1">
@@ -119,7 +120,7 @@ export default function MyReportsPage() {
                   <div className="bg-white border border-gray-200 rounded-xl p-3 mb-3">
                     <p className="text-sm text-gray-500 italic">{r.reviewComment || 'Tulis komentar anda disini..'}</p>
                   </div>
-                  <button className="w-full bg-blue-700 text-white font-semibold py-3 rounded-xl">
+                  <button className="w-full bg-blue-700 text-white font-semibold py-3 rounded-xl" onClick={(e) => e.stopPropagation()}>
                     Kirim Ulasan
                   </button>
                 </div>
