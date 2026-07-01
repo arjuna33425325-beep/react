@@ -136,25 +136,29 @@ export default function ReportDetailPage() {
         {/* Status Tracker */}
         <div className="mb-8">
           <h3 className="font-bold text-xs text-gray-900 mb-6">Lacak Status</h3>
-          <div className="flex justify-between items-center relative px-2">
-            <div className="absolute top-2 left-6 right-6 h-0.5 bg-gray-300 -z-10"></div>
-            {statusSteps.map((step, i) => (
-              <div key={step} className="flex flex-col items-center gap-2 z-10 w-12 relative">
-                {i > 0 && i <= currentStep && (
-                  <div className="absolute top-2 right-[50%] w-[200%] h-0.5 bg-[#f56a2c] -z-10"></div>
-                )}
-                
-                <div className={`w-4 h-4 rounded-full ${
-                  i < currentStep ? 'bg-[#f56a2c]' : 
-                  i === currentStep ? 'bg-[#002244]' : 'bg-gray-300'
-                }`}></div>
-                <span className={`text-[9px] ${
-                  i === currentStep ? 'font-bold text-[#002244]' : 'text-gray-500'
-                }`}>
-                  {step}
-                </span>
-              </div>
-            ))}
+          <div className="relative">
+            {/* Full track */}
+            <div className="absolute top-[7px] left-[calc(100%/(2*5))] right-[calc(100%/(2*5))] h-0.5 bg-gray-300 z-0" />
+            {/* Filled track */}
+            <div
+              className="absolute top-[7px] left-[calc(100%/(2*5))] h-0.5 bg-[#f56a2c] transition-all duration-500 z-[1]"
+              style={{ width: `calc(${currentStep} * (100% - 100%/${statusSteps.length}) / ${statusSteps.length - 1})` }}
+            />
+            <div className="grid gap-0" style={{ gridTemplateColumns: `repeat(${statusSteps.length}, 1fr)` }}>
+              {statusSteps.map((step, i) => (
+                <div key={step} className="flex flex-col items-center gap-2">
+                  <div className={`w-3.5 h-3.5 rounded-full ring-2 ring-white flex-shrink-0 ${
+                    i < currentStep ? 'bg-[#f56a2c]' :
+                    i === currentStep ? 'bg-[#002244]' : 'bg-gray-300'
+                  }`} />
+                  <span className={`text-[9px] text-center leading-tight ${
+                    i === currentStep ? 'font-bold text-[#002244]' : 'text-gray-500'
+                  }`}>
+                    {step}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

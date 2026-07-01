@@ -70,18 +70,24 @@ export default function MyReportsPage() {
               {r.status !== 'Selesai' && r.timeline && (
                 <div className="mt-4 bg-white rounded-xl p-4">
                   <p className="text-xs font-bold mb-4">Lacak Status</p>
-                  <div className="relative flex justify-between items-center">
-                    <div className="absolute top-1.5 left-2 right-2 h-0.5 bg-gray-300 z-0"></div>
+                  <div className="relative">
+                    {/* Full track */}
+                    <div className="absolute top-[7px] left-[calc(100%/(2*5))] right-[calc(100%/(2*5))] h-0.5 bg-gray-300 z-0" />
+                    {/* Filled track */}
                     <div
-                      className="absolute top-1.5 left-2 h-0.5 bg-[#f97316] z-0 transition-all duration-500"
-                      style={{ width: `${(r.timeline.filter(t => t.isCompleted).length - 1) * 25}%` }}
-                    ></div>
-                    {r.timeline.map((step, idx) => (
-                      <div key={idx} className="relative z-10 flex flex-col items-center gap-2">
-                        <div className={`w-3.5 h-3.5 rounded-full ${step.isCompleted ? 'bg-[#f97316]' : 'bg-gray-300'} ring-4 ring-white`}></div>
-                        <span className={`text-[9px] ${step.isCompleted ? 'font-bold text-gray-800' : 'text-gray-500'}`}>{step.status}</span>
-                      </div>
-                    ))}
+                      className="absolute top-[7px] left-[calc(100%/(2*5))] h-0.5 bg-[#f97316] transition-all duration-500 z-[1]"
+                      style={{
+                        width: `calc(${Math.max(0, r.timeline.filter(t => t.isCompleted).length - 1)} * (100% - 100% / ${r.timeline.length}) / ${r.timeline.length - 1})`
+                      }}
+                    />
+                    <div className="grid" style={{ gridTemplateColumns: `repeat(${r.timeline.length}, 1fr)` }}>
+                      {r.timeline.map((step, idx) => (
+                        <div key={idx} className="flex flex-col items-center gap-2">
+                          <div className={`w-3.5 h-3.5 rounded-full ring-2 ring-white flex-shrink-0 ${step.isCompleted ? 'bg-[#f97316]' : 'bg-gray-300'}`} />
+                          <span className={`text-[9px] text-center leading-tight ${step.isCompleted ? 'font-bold text-gray-800' : 'text-gray-500'}`}>{step.status}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
